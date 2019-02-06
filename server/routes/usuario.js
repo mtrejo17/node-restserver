@@ -3,14 +3,15 @@ const app = express();
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcrypt');
 const _ = require("underscore");
+const { verficaToken, verficaAdmin } = require('../middlewares/autenticacion.js');
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verficaToken, function(req, res) {
 
     let desde = req.query.desde || 0;
-    desde = Number(desde)
+    desde = Number(desde);
 
     let limite = req.query.limite || 5;
-    limite = Number(limite)
+    limite = Number(limite);
 
     Usuario.find({ estado: true }, 'nombre email')
         .skip(desde)
@@ -35,7 +36,7 @@ app.get('/usuario', function(req, res) {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verficaToken, verficaAdmin], function(req, res) {
 
     let body = req.body;
 
@@ -60,7 +61,7 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verficaToken, verficaAdmin], function(req, res) {
     let id = req.params.id;
 
     // usamos la función pick de underscore para unicamente obtener los datos que queremos actualizar
@@ -83,7 +84,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verficaToken, verficaAdmin], function(req, res) {
     let id = req.params.id;
     /*Usuario.findByIdAndRemove(id, (err, data) => {
         if (err) {

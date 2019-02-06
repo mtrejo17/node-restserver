@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 let rolesValidos = {
     values: ['ADMIN_ROLE', 'USER_ROLE'],
     message: '{VALUE} no es un role válido'
-}
+};
 
 let usuarioSchema = new Schema({
     nombre: {
@@ -51,6 +51,6 @@ usuarioSchema.methods.toJSON = function() {
 
 }
 
-usuarioSchema.plugin(uniqueValidator, { message: '{PATH} ya existe un usuario con el email proporcionado' })
+usuarioSchema.plugin(uniqueValidator, { message: '{PATH} ya existe un usuario con el email proporcionado' });
 
 module.exports = mongoose.model('Usuario', usuarioSchema);

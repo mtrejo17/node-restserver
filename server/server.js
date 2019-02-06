@@ -10,14 +10,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index'));
 
 //deprecado
 /*mongoose.connect('mongodb://localhost:27017/cafe', (err, res) => {
     if (err) throw err;
     console.log('Conectado a DB');
 });*/
-console.log(process.env.URLDB);
+
+//console.log(process.env.URLDB);
+
 mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, res) => {
     if (err) throw err;
     console.log('Data Base ONLINE');
