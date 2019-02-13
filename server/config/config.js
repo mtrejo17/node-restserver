@@ -18,7 +18,7 @@ process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
 // SEED
 // ==============================
 
-process.env.SEDD = process.env.SEDD || "dev-seed";
+process.env.SEDD = process.env.SEDD || "48h";
 
 // ==============================
 // Base de Datos
